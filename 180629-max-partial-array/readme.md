@@ -1,7 +1,8 @@
-shortest sub-sequence
+# shortest sub-sequence
 
-first_array = [1, 5, 9]
+```javascript
+const firstArray = [1, 5, 9];
+const secondArray = [7, 5, 9, 0, 2, 1, 3, 5, 7, 9, 1, 1, 5, 8, 8, 9, 7];
 
-second_array = [7, 5, 9, 0, 2, 1, 3, 5, 7, 9, 1, 1, 5, 8, 8, 9, 7]
-
--> [7, 10] (indexes)
+const solution = findShortestPathOfOverlap(firstsArray, secondArray); // [7, 10], or [9, 12]
+```

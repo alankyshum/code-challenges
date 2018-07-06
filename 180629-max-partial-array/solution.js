@@ -9,8 +9,10 @@ function main(targetItemList, srcItemList) {
   let optimalRange = [];
 
   const rarestItemPositions = rarestItemOccurrence(targetItemList, srcItemList);
+  // O(number of occurrence of the rarest item of target item list in source item list)
   rarestItemPositions.forEach(position => {
     const valueOfPosition = srcItemList[position];
+    // O(number of itmes in source item list)
     const positionsRange = adjacentPositions(valueOfPosition, position, targetItemList, purifiedSrcItemList);
     const range = [Math.min(...positionsRange), Math.max(...positionsRange)];
     if ((range[1] - range[0]) < minCost) {
