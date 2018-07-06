@@ -5,11 +5,11 @@ console.log(main(firstArray, secondArray));
 
 function main(targetItemList, srcItemList) {
   const purifiedSrcItemList = filterList(targetItemList, srcItemList);
-  const allOccurrencePositions = purifiedSrcItemList.map((value, position) => value ? position : null).filter(position => position);
   let minCost = srcItemList.length;
   let optimalRange = [];
 
-  allOccurrencePositions.forEach(position => {
+  const rarestItemPositions = rarestItemOccurrence(targetItemList, srcItemList);
+  rarestItemPositions.forEach(position => {
     const valueOfPosition = srcItemList[position];
     const positionsRange = adjacentPositions(valueOfPosition, position, targetItemList, purifiedSrcItemList);
     const range = [Math.min(...positionsRange), Math.max(...positionsRange)];
@@ -20,6 +20,29 @@ function main(targetItemList, srcItemList) {
   });
 
   return optimalRange;
+}
+
+function rarestItemOccurrence(targetItemList, srcItemList) {
+  const occurencePositions = {};
+
+  srcItemList.forEach((srcItem, position) => {
+    if (targetItemList.includes(srcItem)) {
+      occurencePositions[srcItem] = occurencePositions[srcItem] || [];
+      occurencePositions[srcItem].push(position);
+    }
+  });
+
+  let minCost = srcItemList.length;
+  let rarestItemPositions = [];
+
+  Object.values(occurencePositions).forEach(positions => {
+    if (positions.length < minCost) {
+      minCost = positions.length;
+      rarestItemPositions = positions;
+    }
+  });
+
+  return rarestItemPositions;
 }
 
 function filterList(targetItemList, srcItemList) {
