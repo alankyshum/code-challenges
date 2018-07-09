@@ -14,7 +14,7 @@ async function readAllExcerpts() {
           return resolve(null);
         }
 
-        const formattedFileName = fileName.replace(/\-|\/readme\.md/g, ' ');
+        const formattedFileName = dateFromFileName(fileName);
         resolve(extractContent(formattedFileName, content));
       });
     });
@@ -29,6 +29,13 @@ async function readAllExcerpts() {
   }
 }
 
+function dateFromFileName(fileName) {
+  const dateHash = fileName.match(/(?<year>\d{2})(?<month>\d{2})(?<day>\d{2})/).groups;
+  const fileDate = new Date(parseInt(`20${dateHash.year}`), parseInt(dateHash.month) - 1, parseInt(dateHash.day));
+  const challengename = fileName.replace(/\d{6}|\-|\/readme\.md/g, ' ')
+  return `${fileDate.toLocaleDateString()} - ${challengename}`;
+}
+
 function extractContent(fileName, fullContent) {
   const excerptRegex = /\<!-- excerpt --\>(?<excerpt>.+)\<!-- \/excerpt --\>/s;
   const extractedExcerpts = fullContent.match(excerptRegex) && fullContent.match(excerptRegex).groups;
@@ -36,7 +43,7 @@ function extractContent(fileName, fullContent) {
 }
 
 function generateReadMe(excerpts) {
-  const header = '# code-challenges\nMy Personal collections of coding brain teasers 💥';
+  const header = '# Code Challenges\nMy Personal collections of coding brain teasers 💥';
   const allExcerpts = excerpts
     .reduce((fullContent, excerptMeta) => fullContent + `## ${excerptMeta.fileName}\n${excerptMeta.content}`, '');
 
