@@ -6,6 +6,7 @@ const ROMAN = [
 ];
 
 const tests = {
+  58: 'LVIII',
   2018: 'MMXVIII',
   1994: 'MCMXCIV',
   1494: 'MCDXCIV'
@@ -18,6 +19,7 @@ console.log(`Result of the test: ${testResult ? 'ALL PASSED' : 'SOME FAILED'}`);
 
 function pureNumberToRoman(number, ROMAN, romanString = '', currentDigit = 0) {
   const currentNumber = getCurrentNumber(number, currentDigit);
+  if (isNaN(currentNumber)) { return romanString; }
 
   if (currentDigit >= 3) {
     const currentRomanString = ROMAN[3][1].repeat(currentNumber);
