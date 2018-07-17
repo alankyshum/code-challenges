@@ -1,7 +1,17 @@
 {
+  "author": "Alan Shum <alan_shum@outlook.com> (http://github.com/alankyshum/)",
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
     "@babel/node": "^7.0.0-beta.54",
     "@babel/preset-env": "^7.0.0-beta.54"
-  }
+  },
+  "scripts": {
+    "doc": "node ./generate-readme.js"
+  },
+  "name": "code-challenges",
+  "version": "1.0.0",
+  "description": "Repo storing all code challenges I am hunting down",
+  "main": "index.js",
+  "repository": "git@github.com:alankyshum/code-challenges.git",
+  "license": "MIT"
 }

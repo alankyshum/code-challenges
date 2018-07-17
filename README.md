@@ -1,5 +1,19 @@
 # Code Challenges
 My Personal collections of coding brain teasers 💥
+## 7/12/2018 - sum tree 
+
+### Sum Tree
+> Return boolean value if the tree is a sum tree
+
+Example of sumtree
+```
+          26
+        /   \
+      10     3
+    /    \     \
+  4      6      3
+```
+
 ## 7/8/2018 - arithmetic boggle 
 
 ### Arithmetic Boggle
