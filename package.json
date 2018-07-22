@@ -13,5 +13,8 @@
   "description": "Repo storing all code challenges I am hunting down",
   "main": "index.js",
   "repository": "git@github.com:alankyshum/code-challenges.git",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.54"
+  }
 }
