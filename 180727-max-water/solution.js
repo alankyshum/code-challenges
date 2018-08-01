@@ -10,14 +10,16 @@ function getTotalValue(piles) {
 }
 
 function totalValueAndLastPos(startPos, lastPos, piles) {
+  const step = (lastPos > startPos ? 1 : -1);
+  const pileWidth = 1;
   let lastHighestPile = { value: 0, pos: startPos };
   let totalValue = 0;
   let intermediateSteps = [];
-  const step = (lastPos > startPos ? 1 : -1);
 
   for (let i = startPos; (lastPos - i) * step >= 0; i += step) {
     if (piles[i] >= lastHighestPile.value) {
-      totalValue += lastHighestPile.value * Math.abs(i - lastHighestPile.pos) - totalIntermediateCost(intermediateSteps);
+      let segmentValue = lastHighestPile.value * (Math.abs(i - lastHighestPile.pos) - pileWidth);
+      totalValue += segmentValue - totalIntermediateCost(intermediateSteps);
       lastHighestPile.value = piles[i];
       lastHighestPile.pos = i;
       intermediateSteps = [];
