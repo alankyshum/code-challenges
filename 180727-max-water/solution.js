@@ -1,7 +1,27 @@
 const input = [0, 0, 4, 0, 0, 6, 0, 0, 3, 0, 5, 0, 1, 0, 0, 0];
-const expected = 36;
+const expected = 26;
 
-console.log(getTotalValue(input));
+const tests = [
+  {
+    input: [0, 0, 4, 0, 0, 6, 0, 0, 3, 0, 5, 0, 1, 0, 0, 0],
+    expected: 26
+  },
+  {
+    input: [1, 0, 4, 0, 0, 6, 0, 0, 3, 0, 5, 0, 1, 0, 0, 0],
+    expected: 27
+  },
+  {
+    input: [3, 2, 1, 0, 1, 2, 3],
+    expected: 9
+  },
+]
+
+console.log(getTotalValue([7, 6, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7]));
+
+const allPassed = tests.every(test => getTotalValue(test.input) === test.expected);
+const message = allPassed ? 'ALL PASSED' : 'SOME FAILED';
+console[allPassed ? 'log' : 'error'](message);
+
 
 function getTotalValue(piles) {
   const left = totalValueAndLastPos(0, piles.length - 1, piles);
