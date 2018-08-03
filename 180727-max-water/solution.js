@@ -20,32 +20,32 @@ const allPassed = tests.every(test => getTotalValue(test.input) === test.expecte
 const message = allPassed ? 'ALL PASSED' : 'SOME FAILED';
 console[allPassed ? 'log' : 'error'](message);
 
-function getTotalValue(piles) {
-  const left = totalValueAndLastPos(0, piles.length - 1, piles);
-  const right = totalValueAndLastPos(piles.length - 1, left.pos, piles);
+function getTotalValue(pillars) {
+  const left = totalValueAndLastPos(0, pillars.length - 1, pillars);
+  const right = totalValueAndLastPos(pillars.length - 1, left.pos, pillars);
   return left.value + right.value;
 }
 
-function totalValueAndLastPos(startPos, lastPos, piles) {
+function totalValueAndLastPos(startPos, lastPos, pillars) {
   const step = (lastPos > startPos ? 1 : -1);
-  const pileWidth = 1;
-  let lastHighestPile = { value: 0, pos: startPos };
+  const pillarWidth = 1;
+  let lastHighestPillar = { value: 0, pos: startPos };
   let totalValue = 0;
   let intermediateSteps = [];
 
   for (let i = startPos; (lastPos - i) * step >= 0; i += step) {
-    if (piles[i] >= lastHighestPile.value) {
-      let segmentValue = lastHighestPile.value * (Math.abs(i - lastHighestPile.pos) - pileWidth);
+    if (pillars[i] >= lastHighestPillar.value) {
+      let segmentValue = lastHighestPillar.value * (Math.abs(i - lastHighestPillar.pos) - pillarWidth);
       totalValue += segmentValue - totalIntermediateCost(intermediateSteps);
-      lastHighestPile.value = piles[i];
-      lastHighestPile.pos = i;
+      lastHighestPillar.value = pillars[i];
+      lastHighestPillar.pos = i;
       intermediateSteps = [];
     } else {
-      intermediateSteps.push(piles[i])
+      intermediateSteps.push(pillars[i])
     }
   }
 
-  return { value: totalValue, pos: lastHighestPile.pos };
+  return { value: totalValue, pos: lastHighestPillar.pos };
 }
 
 function totalIntermediateCost(intermediateSteps) {
