@@ -1,5 +1,15 @@
 # Code Challenges
 My Personal collections of coding brain teasers 💥
+## 8/9/2018 - word transform 
+
+### Transform wordA to wordB
+
+> Given two words of equal length that are in a dictionary, write a method to transform one word into another word by changing only one letter at a time. The new word you get in each step must be in the dictionary.
+
+```
+Input: DAMP, LIKE
+Output: DAMP -> LAMP -> LIMP -> LIME -> LIKE
+```
 ## 7/27/2018 - max water 
 
 ### Finding max area
