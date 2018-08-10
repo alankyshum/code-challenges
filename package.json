@@ -3,7 +3,8 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
     "@babel/node": "^7.0.0-beta.54",
-    "@babel/preset-env": "^7.0.0-beta.54"
+    "@babel/preset-env": "^7.0.0-beta.54",
+    "word-list": "^2.0.0"
   },
   "scripts": {
     "doc": "node ./generate-readme.js"

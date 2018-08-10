@@ -1,3 +1,5 @@
+import Cache from './Cache';
+
 const WORD_LIST = getWordList();
 const givenWord = {
   srcWord: "DAMP",
@@ -5,7 +7,6 @@ const givenWord = {
   output: ["DAMP", "LAMP", "LIMP", "LIME", "LIKE"]
 };
 
-const CACHE = {};
 const sequence = getSequence(
   givenWord.srcWord,
   getAvailableIndex(givenWord.srcWord.length - 1),
@@ -18,7 +19,7 @@ function getSequence(word, availableIndex, targetWord) {
   if (!doesWordExist(word)) return false;
   if (!availableIndex.length) return [word];
 
-  const cachedSequence = getCache(availableIndex);
+  const cachedSequence = Cache.getCache(availableIndex);
   if (typeof cachedSequence !== "undefined")
     return cachedSequence ? [word, ...cachedSequence] : false;
 
@@ -27,34 +28,11 @@ function getSequence(word, availableIndex, targetWord) {
     const newWord = replaceAt(word, testIndex, targetWord[testIndex]);
     const remainingIndex = removeItem(availableIndex, testIndex);
     const nextSequence = getSequence(newWord, remainingIndex, targetWord);
-    cache(remainingIndex, nextSequence);
+    Cache.cache(remainingIndex, nextSequence);
     if (nextSequence) return [word, ...nextSequence];
   }
 
   return false;
-}
-
-function cache(availableIndex, sequence) {
-  // space complexity: O(nC1 + nC2 + nC3 + ... + nCn = 2**n)
-  CACHE[calculateCacheKey(availableIndex)] = sequence;
-}
-
-function getCache(availableIndex) {
-  return CACHE[calculateCacheKey(availableIndex)];
-}
-
-function calculateCacheKey(availableIndex) {
-  /*
-    | index                 | value  |
-    | [0]                   | 1      |
-    | [0, 1]                | 2      |
-    | [0, 2]                | 3      |
-    | [1, 2]                | 4      |
-  */
-  return availableIndex.reduce(
-    (summedValue, index) => summedValue + index + 1,
-    0
-  );
 }
 
 function getAvailableIndex(maxIndex) {
@@ -70,7 +48,12 @@ function removeItem(originalItemList, itemToBeDeleted) {
 }
 
 function doesWordExist(word) {
-  return binaryIndexOf.bind(WORD_LIST)(word.toLowerCase()) !== -1;
+  const cachedExistenceResult = Cache.getCachedWord(word);
+  if (typeof cachedExistenceResult !== 'undefined') return cachedExistenceResult;
+
+  const wordExists = binaryIndexOf.bind(WORD_LIST)(word.toLowerCase()) !== -1;
+  Cache.cacheWord(word, wordExists);
+  return wordExists;
 }
 
 function binaryIndexOf(searchElement) {
